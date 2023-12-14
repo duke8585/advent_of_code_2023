@@ -39,15 +39,16 @@ function lookUpX(search: number, lookup: number[][]) {
         var lower = src
         var upper = src + len
         if (lower <= search && search < upper) {
+            return dest + (search - lower)
             // console.log(search, " in: ", lower, "-", upper)
-            for (var i = 0; i < len; i++) {
-                // console.log("S|SRC|DEST", search, src + i, dest + i)
-                if (search === src + i) {
-                    // console.log("matched", search, "to", dest + i)
-                    return dest + i
-                }
+            //     for (var i = 0; i < len; i++) {
+            //         // console.log("S|SRC|DEST", search, src + i, dest + i)
+            //         if (search === src + i) {
+            //             // console.log("matched", search, "to", dest + i)
+            //             return dest + i
+            //         }
 
-            }
+            //     }
         }
     }
     // console.log("not matched", search, "default", search)
@@ -85,36 +86,38 @@ for (var seed of seedList) {
 console.log("p1:", seedLocations.reduce((acc, curr) => Math.min(curr[1], acc), 9999999999999999))
 
 
-function sliding(arr: any[], size: number, offset: number) {
-    var arrArr: any[][] = []
-    for (var i = 0; i < arr.length; i += offset) {
-        var subArr = arr.slice(i, i + size)
-        arrArr.push(subArr)
-    }
-    return arrArr
+// NOTE p2 start
 
-}
-var a = Array.from(Array(10).keys())
-console.log(sliding(a, 2, 2))
-console.log("---")
-console.log(sliding(a, 3, 3))
+// function sliding(arr: any[], size: number, offset: number) {
+//     var arrArr: any[][] = []
+//     for (var i = 0; i < arr.length; i += offset) {
+//         var subArr = arr.slice(i, i + size)
+//         arrArr.push(subArr)
+//     }
+//     return arrArr
 
-var seedListP2: number[] = []
+// }
+// var a = Array.from(Array(10).keys())
+// console.log(sliding(a, 2, 2))
+// console.log("---")
+// console.log(sliding(a, 3, 3))
 
-for (const [begin, rng] of sliding(seedList, 2, 2)) {
-    for (var i = begin; i < begin + rng; i++) {
-        seedListP2.push(i)
-    }
-}
+// var seedListP2: number[] = []
 
-var seedLocationsP2: number[][] = []
-for (var seed of seedListP2) {
-    var loc = walkLookups(seed)
-    seedLocationsP2.push([seed, loc])
-    console.log(seed, loc)
-}
+// for (const [begin, rng] of sliding(seedList, 2, 2)) {
+//     for (var i = begin; i < begin + rng; i++) {
+//         seedListP2.push(i)
+//     }
+// }
 
-console.log("p2:", seedLocationsP2.reduce((acc, curr) => Math.min(curr[1], acc), 9999999999999999))
+// var seedLocationsP2: number[][] = []
+// for (var seed of seedListP2) {
+//     var loc = walkLookups(seed)
+//     seedLocationsP2.push([seed, loc])
+//     console.log(seed, loc)
+// }
+
+// console.log("p2:", seedLocationsP2.reduce((acc, curr) => Math.min(curr[1], acc), 9999999999999999))
 
 // TODO cannot do because of performance likely
 
