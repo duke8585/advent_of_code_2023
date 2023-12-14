@@ -88,33 +88,40 @@ console.log("p1:", seedLocations.reduce((acc, curr) => Math.min(curr[1], acc), 9
 
 // NOTE p2 start
 
-// function sliding(arr: any[], size: number, offset: number) {
-//     var arrArr: any[][] = []
-//     for (var i = 0; i < arr.length; i += offset) {
-//         var subArr = arr.slice(i, i + size)
-//         arrArr.push(subArr)
-//     }
-//     return arrArr
+function sliding(arr: any[], size: number, offset: number) {
+    var arrArr: any[][] = []
+    for (var i = 0; i < arr.length; i += offset) {
+        var subArr = arr.slice(i, i + size)
+        arrArr.push(subArr)
+    }
+    return arrArr
 
-// }
+}
+// NOTE sliding test
 // var a = Array.from(Array(10).keys())
 // console.log(sliding(a, 2, 2))
 // console.log("---")
 // console.log(sliding(a, 3, 3))
 
-// var seedListP2: number[] = []
+var seedListsP2: number[][] = []
+const range = (start: number, end: number) => Array.from({ length: (end - start) }, (v, k) => k + start)
 
-// for (const [begin, rng] of sliding(seedList, 2, 2)) {
-//     for (var i = begin; i < begin + rng; i++) {
-//         seedListP2.push(i)
-//     }
-// }
+for (const [begin, rng] of sliding(seedList, 2, 2)) {
+    console.log(begin, rng)
+    // for (var i = begin; i < begin + rng; i++) {
+    seedListsP2.push(range(begin, begin + rng))
+    // }
+    console.log(seedListsP2)
+}
+
+
+// sliding(seedList, 2, 2).forEach(())
 
 // var seedLocationsP2: number[][] = []
 // for (var seed of seedListP2) {
 //     var loc = walkLookups(seed)
 //     seedLocationsP2.push([seed, loc])
-//     console.log(seed, loc)
+//     // console.log(seed, loc)
 // }
 
 // console.log("p2:", seedLocationsP2.reduce((acc, curr) => Math.min(curr[1], acc), 9999999999999999))
