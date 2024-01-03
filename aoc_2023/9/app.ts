@@ -1,0 +1,53 @@
+import * as fs from 'fs'
+function cl(...args: any[]) {
+    console.log(...args)
+}
+
+
+// https://upmostly.com/typescript/reading-and-writing-files-with-typescript
+var values = fs.readFileSync('./tst.txt', 'utf-8')
+var values = fs.readFileSync('./inp.txt', 'utf-8')
+const rows = values.split(/\n/).map(r => r.split(" ").map(e => parseInt(e)))
+
+// cl(rows)
+
+function sliding(arr: any[], size: number, offset: number) {
+    var arrArr: any[][] = []
+    for (var i = 0; i < arr.length; i += offset) {
+        var subArr = arr.slice(i, i + size)
+        arrArr.push(subArr)
+    }
+    return arrArr
+
+}
+
+// var x = [1, 3, 2, 4, 3, 5, 4, 7, 5, 8]
+// cl(sliding(x, 2, 2).map(x => x[1] - x[0]))
+
+function analyze(seq: number[][]): number[][] {
+    // cl(seq)
+    var diffs: number[] = sliding(seq[seq.length - 1], 2, 1) // NOTE take last deconstruction always
+        .map(x => x[1] - x[0])
+        .filter(x => !isNaN(x))
+    seq.push(diffs)
+    if ([...new Set(diffs)].length === 1) {
+        // cl("--" + " done ".repeat(4) + "--")
+        return seq
+    }
+    else {
+        return analyze(seq)
+    }
+}
+
+var allNext = rows.map(row => {
+    // cl(row)
+    var res: number[][] = analyze([row])!
+    var next = res.reduce((acc, curr) =>
+        acc + curr[curr.length - 1]
+        , 0)
+    return next
+    // cl("+".repeat(20))
+})
+
+cl(allNext)
+cl(allNext.reduce((acc, curr) => acc + curr, 0))
