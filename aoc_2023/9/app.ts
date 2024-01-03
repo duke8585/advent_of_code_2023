@@ -39,15 +39,37 @@ function analyze(seq: number[][]): number[][] {
     }
 }
 
-var allNext = rows.map(row => {
+var allNextP1 = rows.map(row => {
     // cl(row)
-    var res: number[][] = analyze([row])!
+    var res: number[][] = analyze([row])
+    // cl(res)
     var next = res.reduce((acc, curr) =>
         acc + curr[curr.length - 1]
         , 0)
-    return next
     // cl("+".repeat(20))
+    return next
 })
 
-cl(allNext)
-cl(allNext.reduce((acc, curr) => acc + curr, 0))
+var allPrevP2 = rows.map(row => {
+    // cl(row)
+    var res: number[][] = analyze([row]).reverse()
+    // cl(res)
+    var next = res.reduce((acc, curr) => {
+        var nxt = curr[0] - acc
+        // cl("     ", acc, curr, nxt)
+        return nxt
+    }
+        , 0)
+    // cl("+".repeat(20))
+    return next // res[0][0] - next
+})
+
+cl("-".repeat(20))
+cl("p1")
+cl(allNextP1)
+cl(allNextP1.reduce((acc, curr) => acc + curr, 0))
+
+cl("-".repeat(20))
+cl("p2")
+cl(allPrevP2)
+cl(allPrevP2.reduce((acc, curr) => acc + curr, 0))
