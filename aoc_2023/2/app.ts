@@ -30,7 +30,7 @@ function parseRound(rounds: string) {
             case 'green':
                 cnts.green = parseInt(num)
                 break
-            case undefined || null:
+            default:
                 break
         }
     })
@@ -116,7 +116,7 @@ function parseRoundP2(rounds: string[]) {
             case 'green':
                 cnts.green = Math.max(parseInt(num), cnts.green)
                 break
-            case undefined || null:
+            default:
                 break
         }
     })
