@@ -1,9 +1,9 @@
-import { cl, FileUtils, StringUtils, MathUtils } from '../../utils/index';
-
-const calibList = FileUtils.readLines('./inp_1.txt');
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const index_1 = require("../../utils/index");
+const calibList = index_1.FileUtils.readLines('./inp_1.txt');
 // Word-to-number mappings including overlapping cases
-const wordValMap = new Map<string, number>([
+const wordValMap = new Map([
     ['oneight', 18],
     ['twone', 21],
     ['threeight', 38],
@@ -22,30 +22,23 @@ const wordValMap = new Map<string, number>([
     ['eight', 8],
     ['nine', 9]
 ]);
-
 /**
  * Extract calibration value from a line (first and last digit)
  */
-function getCalibrationValue(line: string, useWordNumbers: boolean = false): number {
+function getCalibrationValue(line, useWordNumbers = false) {
     let processedLine = line;
-    
     if (useWordNumbers) {
         // Convert word numbers to digits
-        processedLine = StringUtils.replaceAll(line, wordValMap);
+        processedLine = index_1.StringUtils.replaceAll(line, wordValMap);
     }
-    
-    const first = StringUtils.firstNumericChar(processedLine);
-    const last = StringUtils.firstNumericChar(StringUtils.reverse(processedLine));
-    
+    const first = index_1.StringUtils.firstNumericChar(processedLine);
+    const last = index_1.StringUtils.firstNumericChar(index_1.StringUtils.reverse(processedLine));
     return parseInt(first + last);
 }
-
 // Part 1: Only numeric digits
 const resultsP1 = calibList.map(line => getCalibrationValue(line, false));
-
 // Part 2: Include word numbers
 const resultsP2 = calibList.map(line => getCalibrationValue(line, true));
-
-cl("p1:", MathUtils.sum(resultsP1));
-cl("p2:", MathUtils.sum(resultsP2));
-
+(0, index_1.cl)("p1:", index_1.MathUtils.sum(resultsP1));
+(0, index_1.cl)("p2:", index_1.MathUtils.sum(resultsP2));
+//# sourceMappingURL=app.js.map
